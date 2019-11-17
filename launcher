@@ -1,0 +1,3 @@
+#!/bin/bash
+python -m pip install requirements.txt
+python blockchain_simple_server.py
