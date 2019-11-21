@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="home">
+    <center>
+    <h1>Hi!</h1>
+    <h1>We are the #apmath-blockchain team</h1>
+    <h1>and we are happy to share our project with you</h1>
+    <p style="margin-top: 60px">Тестовый текст</p>
+    <p style="margin-top: 30px"><a href="{{ url_for('get_full_chain') }}" class="uploadbutton"><span style='font-size:25px;'>Full chain&#128640;</span></a></p>
+    <p style="margin-top: 30px"><a href="{{ url_for('mine') }}" class="uploadbutton"><span style='font-size:25px;'>Mine?</span></a></p>
+
+    </center>
+  </div>
+{% endblock %}
+

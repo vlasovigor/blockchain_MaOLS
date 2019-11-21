@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import *
 import requests
 from uuid import uuid4
 from Blockchain import Blockchain
@@ -6,6 +6,33 @@ from Blockchain import Blockchain
 app = Flask(__name__)
 node_identifier = str(uuid4()).replace('-', '')
 blockchain = Blockchain()
+
+
+@app.route('/')
+def home():
+    return render_template("home.html")
+
+
+@app.route('/layout')
+def layout():
+    return render_template("layout.html")
+
+
+@app.route('/aboutus')
+def about():
+    return render_template("about.html")
+
+@app.route('/upload')    # ('/') - WORK
+def upload():
+    return render_template("upload.html")
+
+
+@app.route('/success', methods=['POST'])
+def success():
+    if request.method == 'POST':
+        f = request.files['file']
+        f.save(f.filename)
+        return render_template("success.html", name=f.filename)
 
 
 @app.route('/mine', methods=['GET'])
@@ -24,7 +51,7 @@ def mine():
         'proof': block['proof'],
         'previous_hash': block['previous_hash'],
     }
-    return jsonify(response), 200
+    return render_template('mine.html', response=response)
 
 
 @app.route('/transactions/new', methods=['POST'])
@@ -46,7 +73,7 @@ def get_full_chain():
         'chain': blockchain.chain,
         'length': len(blockchain.chain)
     }
-    return jsonify(response)
+    return render_template('all_chain.html', response=response)
 
 
 @app.route('/nodes/register', methods=['POST'])
