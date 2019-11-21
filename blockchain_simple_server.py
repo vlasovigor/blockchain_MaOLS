@@ -42,11 +42,11 @@ def new_transaction():
 
 @app.route('/chain', methods=['GET'])
 def get_full_chain():
-    responcse = {
+    response = {
         'chain': blockchain.chain,
         'length': len(blockchain.chain)
     }
-    return jsonify(responcse)
+    return jsonify(response)
 
 
 @app.route('/nodes/register', methods=['POST'])
@@ -85,4 +85,4 @@ def consensus():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True)
