@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+__pycache__/Blockchain.cpython-37.pyc
+.idea/workspace.xml
+__pycache__/Blockchain.cpython-37.pyc
+*.pyc
