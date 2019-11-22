@@ -2,7 +2,15 @@
 {% extends "layout.html" %}
 {% block content %}
   <div class="all_chain">
-    <p>{{response}}</p>
+    <center>
+    <div class="otstup_50">
+    <h6>Chain:</h6><h5>{{response['chain']}}</h5>
+    </div>
+    <div class="otstup_100">
+    <h6>Length:</h6><h5>{{response['length']}}</h5>
+    </div>
+    </center>
   </div>
+
 
 {% endblock %}

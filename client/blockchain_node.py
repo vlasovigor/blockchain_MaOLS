@@ -13,6 +13,6 @@ params = {
 # print(mine.status_code)
 # print(mine.content)
 
-url_chian = 'http://localhost:5000/chain'
-r = requests.get(url=url_chian)
+url_chain = 'http://localhost:5000/chain'
+r = requests.get(url=url_chain)
 print(r.content)

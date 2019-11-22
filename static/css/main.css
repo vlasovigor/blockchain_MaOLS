@@ -2,23 +2,24 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #444;
+  color: #2B2B2B;
 }
 /*
  * Formatting the header area
  */
 header {
-  background-color: #2B2B2B;
-  height: 35px;
+  background-color: #161616;
+  height: 45px;
   width: 100%;
   opacity: .9;
   margin-bottom: 0px;
 
 }
 header h4.logo {
-  margin: 0;
+  font-weight: bold;
+  margin-top: 8px;
   margin-left: 40px;
-  font-size: 1.7em;
+  font-size: 1.3em;
   color: #F2F2F2;
   float: left;
 }
@@ -43,7 +44,9 @@ div.home {
 }
 div.about {
   padding: 50px 0 50px 0;
-  background-image:  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("jungle.jpg");
+  background-image:  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("bg_containers1.jpeg");
+  background-size: 100%;
+  background-position: center;
   color: #F2F2F2;
   -webkit-border-radius: 0px;
      -moz-border-radius: 0px;
@@ -74,8 +77,9 @@ h4 {
 }
 
 .menu {
+  font-weight: bold;
   float: right;
-  margin-top: 8px;
+  margin-top: 11px;
   margin-right: 40px;
 }
 .menu li {
@@ -85,15 +89,15 @@ h4 {
   margin-left: 35px;
 }
 .menu li a {
+  font-weight: bold;
+  font-size: 0.86em;
   color: #F2F2F2;
   text-decoration: none;
 }
 
 .menu li a:hover {
-  color: #2B2B2B;
-  background: #F2F2F2;
-  border: 7px solid;
-  border-color: #F2F2F2;
+  color: #9e9e9e;
+
 }
 
 .uploadbutton {
@@ -140,3 +144,33 @@ h4 {
 .uploadbuttons {
   margin-top: 300px;
 }
+
+.all_chain {
+  margin-top: 100px;
+
+}
+
+h5 {
+  font-size: 5em;
+  font-weight: bolder;
+  color: #000457;
+  margin: 0;
+}
+
+h6 {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+  color: #b8b8b8;
+}
+
+.otstup_50 {
+  margin-top: 50px;
+}
+
+.otstup_100 {
+  margin-top: 100px;
+}
+
+
