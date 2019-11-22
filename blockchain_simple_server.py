@@ -22,18 +22,6 @@ def layout():
 def about():
     return render_template("about.html")
 
-@app.route('/upload')    # ('/') - WORK
-def upload():
-    return render_template("upload.html")
-
-
-@app.route('/success', methods=['POST'])
-def success():
-    if request.method == 'POST':
-        f = request.files['file']
-        f.save(f.filename)
-        return render_template("success.html", name=f.filename)
-
 
 @app.route('/mine', methods=['GET'])
 def mine():
@@ -81,7 +69,7 @@ def get_full_chain():
         'chain': blockchain.chain,
         'length': len(blockchain.chain)
     }
-    return render_template('all_chain.html', response=response)
+    return render_template('all_chain.html', response=response,)
 
 
 @app.route('/nodes/register', methods=['POST'])
@@ -120,4 +108,4 @@ def consensus():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True)
