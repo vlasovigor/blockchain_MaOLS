@@ -17,7 +17,7 @@ class Blockchain(object):
             'timestamp': time(),
             'transactions': self.current_transactions,
             'proof': proof,
-            'previous_hash': previous_hash or self.hash(self.chain[-1]),
+            'previous_hash': self.hash(self.chain[-1]),
         }
         self.current_transactions = []
         self.chain.append(block)
@@ -29,7 +29,10 @@ class Blockchain(object):
             'recipient': recipient,
             'amount': amount
         })
-        return self.last_block['index'] + 1
+        try:
+            return self.last_block['index'] + 1
+        except TypeError:
+            return 1
 
     @staticmethod
     def hash(block):

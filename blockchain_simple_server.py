@@ -1,4 +1,4 @@
-from flask import *
+from flask import Flask, render_template, jsonify, request
 import requests
 from uuid import uuid4
 from Blockchain import Blockchain
@@ -25,7 +25,11 @@ def about():
 
 @app.route('/mine', methods=['GET'])
 def mine():
-    last_block = blockchain.last_block
+    try:
+        last_block = blockchain.last_block
+    except IndexError:
+        return jsonify({'message': 'no transactions'}), 401
+
     last_proof = last_block['proof']
     proof = blockchain.proof_of_work(last_proof)
 
@@ -44,10 +48,14 @@ def mine():
 
 @app.route('/transactions/new', methods=['POST'])
 def new_transaction():
-    values = request.get_json()
+    try:
+        values = request.args
+    except BaseException:
+        return jsonify({'message': 'some shit happens'}), 401
+
     required = ['sender', 'recipient', 'amount']
 
-    if not all(r in values for r in required):
+    if not all(r in values.keys() for r in required):
         return 'Missing required argument', 400
 
     index = blockchain.new_transaction(values['sender'], values['recipient'], values['amount'])
@@ -101,4 +109,4 @@ def consensus():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
