@@ -22,18 +22,6 @@ def layout():
 def about():
     return render_template("about.html")
 
-@app.route('/upload')    # ('/') - WORK
-def upload():
-    return render_template("upload.html")
-
-
-@app.route('/success', methods=['POST'])
-def success():
-    if request.method == 'POST':
-        f = request.files['file']
-        f.save(f.filename)
-        return render_template("success.html", name=f.filename)
-
 
 @app.route('/mine', methods=['GET'])
 def mine():
@@ -64,7 +52,8 @@ def new_transaction():
 
     index = blockchain.new_transaction(values['sender'], values['recipient'], values['amount'])
     response = {'message': f'Transaction will be added to Block {index}'}
-    return jsonify(response), 201
+    #return jsonify(response), 201
+    return render_template('transactions_new.html',response=response)
 
 
 @app.route('/chain', methods=['GET'])
