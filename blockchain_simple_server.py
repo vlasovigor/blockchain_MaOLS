@@ -40,7 +40,7 @@ def mine():
     try:
         last_block = blockchain.last_block
     except IndexError:
-        return jsonify({'message': 'transactions'}), 401
+        return jsonify({'message': 'no transactions'}), 401
 
     last_proof = last_block['proof']
     proof = blockchain.proof_of_work(last_proof)
@@ -61,7 +61,7 @@ def mine():
 @app.route('/transactions/new', methods=['POST'])
 def new_transaction():
     try:
-        values = request.get_json()
+        values = request.args
     except BaseException:
         return jsonify({'message': 'some shit happens'}), 401
 

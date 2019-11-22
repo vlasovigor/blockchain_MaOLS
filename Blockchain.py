@@ -29,7 +29,10 @@ class Blockchain(object):
             'recipient': recipient,
             'amount': amount
         })
-        return self.last_block['index'] + 1
+        try:
+            return self.last_block['index'] + 1
+        except TypeError:
+            return 1
 
     @staticmethod
     def hash(block):
