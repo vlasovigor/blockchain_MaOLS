@@ -1,0 +1,34 @@
+[
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "incrementCounter",
+    "outputs": [],
+    "payable": false,
+    "type": "function",
+    "stateMutability": "nonpayable"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getCount",
+    "outputs": [
+      {
+        "name": "",
+        "type": "int256"
+      }
+    ],
+    "payable": false,
+    "type": "function",
+    "stateMutability": "view"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "decrementCounter",
+    "outputs": [],
+    "payable": false,
+    "type": "function",
+    "stateMutability": "nonpayable"
+  }
+]

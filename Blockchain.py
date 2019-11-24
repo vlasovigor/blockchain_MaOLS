@@ -3,6 +3,7 @@ import json
 import hashlib
 from urllib.parse import urlparse
 import requests
+from web3 import Web3
 
 
 class Blockchain(object):
@@ -101,3 +102,41 @@ class Blockchain(object):
             return True
 
         return False
+
+
+class GanacheHandler(object):
+    url = "http://127.0.0.1:7545"
+
+    def __init__(self):
+        self.web3 = Web3(Web3.HTTPProvider(self.url))
+        self.account = self.web3.eth.accounts
+
+    def init_contract(self):
+        pass
+
+    def simple_transaction(self, account_1, account_2, pk):
+        nonce = self.web3.eth.getTransactionCount(account_1)
+
+        tx = {
+            'nonce': nonce,
+            'to': account_2,
+            'value': self.web3.toWei(4, 'ether'),
+            'gas': 2000000,
+            'gasPrice': self.web3.toWei('50', 'gwei'),
+        }
+
+        signed_tx = self.web3.eth.account.signTransaction(tx, pk)
+        tx_hash = self.web3.eth.sendRawTransaction(signed_tx.rawTransaction)
+        return self.web3.toHex(tx_hash)
+
+
+class ContractHandler(object):
+    def __init__(self, ganache, abi, bytecode):
+        self.contract = ganache.web3.eth.contract(abi=abi, bytecode=bytecode)
+        self.tx_hash = self.contract.constructor().transact()
+        self.tx_receipt = ganache.web3.eth.waitForTransactionReceipt(self.tx_hash)
+
+
+if __name__ == '__main__':
+    ganache = GanacheHandler()
+    print(ganache.account.)
