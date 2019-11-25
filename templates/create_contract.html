@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+  <style>
+    th, td {
+      padding: 3px;
+    }
+    table {
+    table-layout: fixed; /* Фиксированная ширина ячеек */
+    width: 100%; /* Ширина таблицы */
+   }
+   .col1 { width: 60px; }
+   .coln { width: 60px; }
+
+  </style>
+<table style="table1">
+    <tr>
+    <td><h6>Sender</h6></td>
+    <td><h7>{{response['sender']}}</h7></td>
+  </tr>
+  <tr>
+    <td><h6>Distributor</h6></td>
+    <td><h7>{{response['distributor']}}</h7></td>
+  </tr>
+  <tr>
+    <td><h6>Receiver</h6></td>
+    <td><h7>{{response['receiver']}}</h7></td>
+  </tr>
+  <tr>
+    <td><h6>Delivery Price</h6></td>
+    <td><h7>{{response['price_delivery']}}</h7></td>
+  </tr>
+  <tr>
+    <td><h6>Goods Price</h6></td>
+    <td><h7>{{response['price_goods']}}</h7></td>
+  </tr>
+  <tr>
+    <td><h6>Weight</h6></td>
+    <td><h7>{{response['weight']}}</h7></td>
+  </tr>
+  <tr>
+    <td><h6>Volume</h6></td>
+    <td><h7>{{response['volume']}}</h7></td>
+  </tr>
+   <tr>
+    <td><h6>Distributor Deadline</h6></td>
+     <td><h7>{{response['final_date']}}</h7></td>
+  </tr>
+</table>
+
+<center>
+<p style="margin-top: 60px"><a href="{{ url_for('create_contract') }}" class="uploadbutton"><span style='font-size:20px; font-weight:bold;'>New contract</span></a></p>
+<p style="margin-top: 60px"><a href="{{ url_for('get_full_chain') }}" class="uploadbutton"><span style='font-size:20px; font-weight:bold;'>Full chain	&#128279;</span></a></p>
+
+
+</center>
+
+{% endblock %}

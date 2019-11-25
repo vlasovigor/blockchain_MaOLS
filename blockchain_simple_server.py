@@ -18,6 +18,12 @@ def layout():
     return render_template('layout.html')
 
 
+@app.route('/create_contract')  # flask function
+def create_contract():
+    print('RABOTAET')
+    return render_template('create_contract.html')
+
+
 @app.route('/aboutus')
 def about():
     return render_template('about.html')
