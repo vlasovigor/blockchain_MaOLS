@@ -158,11 +158,19 @@ h5 {
 }
 
 h6 {
-  font-size: 2em;
-  font-weight: bold;
+  font-size: 1.3em;
+  font-weight: 450;
   margin: 0;
   text-align: center;
   color: #b8b8b8;
+}
+
+h7 {
+  font-size: 1.3em;
+  font-weight: 450;
+  margin: 0;
+  text-align: center;
+  color: #000457;
 }
 
 .otstup_50 {
@@ -171,6 +179,20 @@ h6 {
 
 .otstup_100 {
   margin-top: 100px;
+}
+
+.table1 {
+  th, td {
+  padding: 15px;
+}
+  margin: 0;
+  padding: 4px;
+}
+
+.table1 li {
+  display: inline; /* Отображать как строчный элемент */
+  margin-right: 5px;
+  padding: 3px;
 }
 
 
