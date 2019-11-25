@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Map page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=4ccc0b71-efcb-40c1-8f45-123411145c3c&lang=ru_RU" type="text/javascript"></script>
+    <script src="blockchain_MaOLS/templates/circle.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        ymaps.ready(init);
+        function init(){
+            var geolocation = ymaps.geolocation,
+            myMap = new ymaps.Map('map', {
+            center: [55, 34],
+            zoom: 15
+        }, {
+            searchControlProvider: 'yandex#search'
+        });
+
+             geolocation.get({
+            provider: 'yandex',
+            mapStateAutoApply: true
+            }).then(function (result) {
+            // Красным цветом пометим положение, вычисленное через ip.
+            result.geoObjects.options.set('preset', 'islands#redCircleIcon');
+            result.geoObjects.get(0).properties.set({
+                balloonContentBody: 'Мое местоположение'
+            });
+            myMap.geoObjects.add(result.geoObjects);
+            })
+
+            myCircle = new ymaps.Circle([
+                [51.051889, 13.740153],
+                50
+            ], {
+                balloonContent: "Радиус круга - 10 км",
+                hintContent: "Подвинь меня"
+            }, {
+                draggable: true,
+                fillColor: "#DB709377",
+                strokeColor: "#990066",
+                strokeOpacity: 0.8,
+                strokeWidth: 4
+            });
+
+            circle = new ymaps.Circle([[51.051889, 13.740145], 10000], null, { draggable: true });
+            circle.events.add('drag', function () {
+            var objectsInsideCircle = Boolean(geolocation.searchInside(circle));
+            if (objectsInsideCircle === true) {
+            console.log('RABOTAET');
+            }
+            objectsInsideCircle.setOptions('preset', 'islands#greenIcon');
+            objects.remove(objectsInsideCircle).setOptions('preset', 'islands#blueIcon');
+             });
+
+
+
+            myMap.geoObjects.add(myCircle);
+
+
+        }
+
+
+
+    </script>
+</head>
+
+<body>
+    <center>
+        <div id="map" style="margin-top: 180px; width: 600px; height: 400px"></div>
+    </center>
+</body>
+
+</html>

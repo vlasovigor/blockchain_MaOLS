@@ -10,18 +10,21 @@ blockchain = Blockchain()
 
 @app.route('/')
 def home():
-    return render_template("home.html")
+    return render_template('home.html')
 
 
 @app.route('/layout')
 def layout():
-    return render_template("layout.html")
+    return render_template('layout.html')
 
 
 @app.route('/aboutus')
 def about():
-    return render_template("about.html")
+    return render_template('about.html')
 
+@app.route('/maps')
+def maps():
+    return render_template('maps.html')
 
 @app.route('/mine', methods=['GET'])
 def mine():
