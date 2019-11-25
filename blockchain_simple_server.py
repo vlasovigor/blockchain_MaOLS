@@ -1,7 +1,9 @@
 from flask import Flask, render_template, jsonify, request
 import requests
 from uuid import uuid4
-from Blockchain import Blockchain
+from Blockchain import Blockchain, GanacheHandler, ContractHandler
+import random
+import asyncio
 
 app = Flask(__name__)
 node_identifier = str(uuid4()).replace('-', '')
@@ -20,18 +22,39 @@ def layout():
 
 @app.route('/create_contract')  # flask function
 def create_contract():
-    print('RABOTAET')
-    return render_template('create_contract.html')
+    response = dict()
+    ganache = GanacheHandler()
+
+    senders = [ganache.account[0], ganache.account[1]]
+    distributor = [ganache.account[2], ganache.account[3]]
+    receiver = ganache.account[4], 'e7a328e9fa5d14b7e8574a70b947865b0a08f28c7410372462a2b365ad0886de'
+    response['sender'] = random.choice(senders)
+    response['distributor'] = random.choice(distributor)
+    response['receiver'] = receiver[0]
+    response['price_delivery'] = random.choice([2, 3, 5])
+    response['price_goods'] = random.choice([5, 6, 8])
+    response['weight'] = random.choice([12, 45, 56])
+    response['volume'] = random.choice([23, 34, 11])
+    response['final_date'] = random.choice(['12.12.2019', '23.01.2020'])
+
+    contract = ContractHandler()
+    if contract.get_contract(ganache=ganache, response=response, receiver=receiver):
+        return render_template('create_contract.html', response=response)
+    else:
+        return render_template('no_money.html')
 
 
 @app.route('/aboutus')
 def about():
     return render_template('about.html')
 
+
 @app.route('/maps')
 def maps():
     return render_template('maps.html')
 
+
+@app.route('/')
 @app.route('/mine', methods=['GET'])
 def mine():
     try:
@@ -55,30 +78,13 @@ def mine():
     return render_template('mine.html', response=response)
 
 
-@app.route('/transactions/new', methods=['POST'])
-def new_transaction():
-    try:
-        values = request.args
-    except BaseException:
-        return jsonify({'message': 'some shit happens'}), 401
-
-    required = ['sender', 'recipient', 'amount']
-
-    if not all(r in values.keys() for r in required):
-        return 'Missing required argument', 400
-
-    index = blockchain.new_transaction(values['sender'], values['recipient'], values['amount'])
-    response = {'message': f'Transaction will be added to Block {index}'}
-    return jsonify(response), 201
-
-
 @app.route('/chain', methods=['GET'])
 def get_full_chain():
     response = {
         'chain': blockchain.chain,
         'length': len(blockchain.chain)
     }
-    return render_template('all_chain.html', response=response,)
+    return render_template('all_chain.html', response=response, )
 
 
 @app.route('/nodes/register', methods=['POST'])

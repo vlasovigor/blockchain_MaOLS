@@ -1,9 +1,10 @@
-from time import time
+from time import time, sleep
 import json
 import hashlib
 from urllib.parse import urlparse
 import requests
 from web3 import Web3
+from flask import render_template
 
 
 class Blockchain(object):
@@ -110,17 +111,18 @@ class GanacheHandler(object):
     def __init__(self):
         self.web3 = Web3(Web3.HTTPProvider(self.url))
         self.account = self.web3.eth.accounts
+        self.blocks = self.web3.eth.getBlock('latest')
 
     def init_contract(self):
         pass
 
-    def simple_transaction(self, account_1, account_2, pk):
+    def simple_transaction(self, account_1, account_2, pk, amount):
         nonce = self.web3.eth.getTransactionCount(account_1)
 
         tx = {
             'nonce': nonce,
             'to': account_2,
-            'value': self.web3.toWei(4, 'ether'),
+            'value': self.web3.toWei(amount, 'ether'),
             'gas': 2000000,
             'gasPrice': self.web3.toWei('50', 'gwei'),
         }
@@ -131,12 +133,18 @@ class GanacheHandler(object):
 
 
 class ContractHandler(object):
-    def __init__(self, ganache, abi, bytecode):
-        self.contract = ganache.web3.eth.contract(abi=abi, bytecode=bytecode)
-        self.tx_hash = self.contract.constructor().transact()
-        self.tx_receipt = ganache.web3.eth.waitForTransactionReceipt(self.tx_hash)
+    def __init__(self):
+        pass
 
-
+    def get_contract(self, response, ganache, receiver):
+        try:
+            ganache.simple_transaction(response['receiver'], response['sender'], receiver[1], response['price_goods'])
+            ganache.simple_transaction(response['receiver'], response['distributor'], receiver[1],
+                                   response['price_delivery'])
+            return True
+        except ValueError:
+            return False
 if __name__ == '__main__':
     ganache = GanacheHandler()
-    print(ganache.account.)
+    ganache.simple_transaction(ganache.account[0], ganache.account[1],
+                               '0ec8aeb91e1001c978378bb34a33bcf250e9ebc82ae4b29b72f09c75062f6319')
